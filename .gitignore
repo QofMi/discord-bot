@@ -17,6 +17,10 @@ share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+*.log
+*.pot
+*.pyc
+__pycache__/
 MANIFEST
 
 # Environ
