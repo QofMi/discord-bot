@@ -1,3 +1,9 @@
+# Модуль sys
+import sys
+
+# Модуль logging
+import logging
+
 # Discord API
 import discord
 from discord.ext import commands, tasks
@@ -5,13 +11,13 @@ from discord.voice_client import VoiceClient
 
 # YouTube API
 import youtube_dl
-from youtube import *
-
-# Модуль random
-from random import choice
+from .youtube import *
 
 # Файл с настройками
-from config import *
+from .config import *
+
+# ------
+from .utils import _random_choice
 
 
 bot = commands.Bot(command_prefix=PREFIX)
@@ -26,30 +32,22 @@ async def on_ready():
     """
     await send_hello_message()
     change_bot_status.start()
-    print('{0} is online'.format(bot.user))
+    logging.info(f"{bot.user} is online")
 
 
 @tasks.loop(minutes=30)
 async def change_bot_status():
     """
-    Смена статуса через определенный интервал времени, случайно выбирия из списка.
+    Смена статуса через определенный интервал времени.
     """
-    await bot.change_presence(activity=discord.Game(choice(BOT_STATUS)))
-
-
-def _random_hello_message() -> str:
-    """
-    Вывод случайного сообщения из списка.
-    """
-    hello_message = choice(HELLO_MESSAGES)
-    return hello_message
+    await bot.change_presence(activity=discord.Game(_random_choice(list=BOT_STATUS)))
 
 
 async def send_hello_message():
     """
-    Отправка сообщения.
+    Отправка приветственного сообщения.
     """
-    await bot.get_channel(CHANNEL_ID).send(_random_hello_message())
+    await bot.get_channel(CHANNEL_ID).send(_random_choice(list=HELLO_MESSAGES))
 
 
 @bot.command()
@@ -113,10 +111,10 @@ async def remove(ctx, number):
 
     try:
         del(queue[int(number)])
-        await ctx.send(f'ЫЫЫЫЫ`{queue}!`')
+        await ctx.send(f'Трек удален из списка`{queue}!`')
 
     except:
-        await ctx.send('ПАШОЛ НАХУЙ')
+        await ctx.send('Список пуст')
 
 
 @bot.command(name='play', help='Команда для проигрывания трека.')
@@ -163,4 +161,10 @@ async def stop(ctx):
     voice_channel.stop()
 
 
-bot.run(BOT_TOKEN)
+def run():
+    if BOT_TOKEN == '':
+        raise ValueError(
+        "Отсутствует токен, введите токен своего приложения в файле /bot/config.py в BOT_TOKEN = '[token]'"
+        )
+        sys.exit(1)
+    bot.run(BOT_TOKEN)
