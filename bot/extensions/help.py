@@ -28,17 +28,17 @@ class Help(commands.Cog):
 
         help.add_field(name=f'{PREFIX}queue или {PREFIX}q', value='Эта команда добавляет трек в очередь.', inline=False)
 
-        # help.add_field(name=f'{PREFIX}remove или {PREFIX}r', value='Эта команда удаляет трек из списка.', inline=False)
+        help.add_field(name=f'{PREFIX}remove или {PREFIX}r', value='Эта команда удаляет трек из списка.', inline=False)
 
         help.add_field(name=f'{PREFIX}play или {PREFIX}p', value='Команда для проигрывания трека.', inline=False)
 
-        help.add_field(name='{}pause'.format(PREFIX), value='Эта команда ставит трек на паузу.', inline=False)
+        help.add_field(name=f'{PREFIX}pause', value='Эта команда ставит трек на паузу.', inline=False)
 
-        help.add_field(name='{}resume'.format(PREFIX), value='Эта команда возобновляет трек.', inline=False)
+        help.add_field(name=f'{PREFIX}resume', value='Эта команда возобновляет трек.', inline=False)
 
         help.add_field(name=f'{PREFIX}view или {PREFIX}v', value='Эта команда показывает список треков в очереди.', inline=False)
 
-        help.add_field(name=f'{PREFIX}stop или {PREFIX}s', value='Эта команда прекращает проигрывание музыки.', inline=False)
+        help.add_field(name=f'{PREFIX}stop', value='Эта команда прекращает проигрывание музыки.', inline=False)
 
         await ctx.send(embed=help)
 
