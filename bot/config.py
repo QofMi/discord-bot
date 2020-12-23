@@ -1,3 +1,13 @@
+"""
+|------------------------------------------------------------------|
+|Name-app:   discord-bot                                           |
+|Version:    1.0.2                                                 |
+|Author:     Qofmi                                                 |
+|Git:        https://github.com/QofMi/discord-bot.git              |
+|------------------------------------------------------------------|
+"""
+
+
 # Токен бота
 BOT_TOKEN = ''
 
@@ -18,7 +28,11 @@ EXTENSIONS = [
 ]
 
 # Список статусов бота
-BOT_STATUS = []
+BOT_STATUS = [
+
+]
 
 # Список приветственных сообщений
-HELLO_MESSAGES = []
+HELLO_MESSAGES = [
+
+]
