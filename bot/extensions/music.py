@@ -14,7 +14,7 @@ import logging
 from ..config import PREFIX
 
 
-queues = []
+queue = []
 
 
 async def _get_voice_channel(ctx):
@@ -52,7 +52,7 @@ class Music(commands.Cog):
             await ctx.send("Меня уже нет в голосовом чате!")
 
     @commands.command(name='queue', help='Эта команда добавляет трек в очередь.', aliases=["q"])
-    async def queue_(ctx, url):
+    async def queue_(self, ctx, url):
         global queue
         queue.append(url)
         await ctx.send(f'`{url}` трек добавлен в очередь!')
@@ -67,14 +67,15 @@ class Music(commands.Cog):
             await ctx.send('Список пуст')
 
     @commands.command(name='play', help='Команда для проигрывания трека.', aliases=["p"])
-    async def play(ctx):
+    async def play(self, ctx):
         global queue
 
         async with ctx.typing():
-            player = await YTDLSource.from_url(queue[0], loop=bot.loop)
-            _get_voice_channel(ctx).play(player, after=lambda e: print('Ля, ну ты чаго наделал: %s' % e) if e else None)
+            await queue_(self, ctx, url)
+            player = await YTDLSource.from_url(queue[0], loop=self.bot.loop)
+            _get_voice_channel(ctx).play(player, after=lambda e: logging.info(f"ERROR -------> {e}") if e else None)
 
-        await ctx.send('**Сейчас играет:** {}'.format(player.title))
+        await ctx.send(f'**Сейчас играет:** {player.title}')
         del(queue[0])
 
     @commands.command(name='pause', help='Эта команда ставит трек на паузу.')
@@ -87,9 +88,9 @@ class Music(commands.Cog):
 
     @commands.command(name='view', help='Эта команда показывает список треков в очереди.', aliases=["v"])
     async def view(self, ctx):
-        await ctx.send(f'Треки в списке `{queues[_get_server(ctx).id]}!`')
+        await ctx.send(f'Треки в списке `{queue}!`')
 
-    @commands.command(name='stop', help='Эта команда прекращает проигрывание музыки!', aliases=["s"])
+    @commands.command(name='stop', help='Эта команда прекращает проигрывание музыки!')
     async def stop(self, ctx):
         _get_voice_channel(ctx).stop()
 
