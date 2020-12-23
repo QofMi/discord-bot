@@ -69,22 +69,26 @@ class Music(commands.Cog):
     @commands.command(name='play', help='Команда для проигрывания трека.', aliases=["p"])
     async def play(self, ctx):
         global queue
-
+        server = ctx.message.guild
+        voice_channel = server.voice_client
         async with ctx.typing():
-            await queue_(self, ctx, url)
             player = await YTDLSource.from_url(queue[0], loop=self.bot.loop)
-            _get_voice_channel(ctx).play(player, after=lambda e: logging.info(f"ERROR -------> {e}") if e else None)
+            voice_channel.play(player, after=lambda e: print('Ля, ну ты чаго наделал: %s' % e) if e else None)
 
-        await ctx.send(f'**Сейчас играет:** {player.title}')
+        await ctx.send('**Сейчас играет:** {}'.format(player.title))
         del(queue[0])
 
     @commands.command(name='pause', help='Эта команда ставит трек на паузу.')
     async def pause(self, ctx):
-        _get_voice_channel(ctx).pause()
+        server = ctx.message.guild
+        voice_channel = server.voice_client
+        voice_channel.pause()
 
     @commands.command(name='resume', help='Эта команда возобновляет трек.')
     async def resume(self, ctx):
-        _get_voice_channel(ctx).resume()
+        server = ctx.message.guild
+        voice_channel = server.voice_client
+        voice_channel.resume()
 
     @commands.command(name='view', help='Эта команда показывает список треков в очереди.', aliases=["v"])
     async def view(self, ctx):
@@ -92,7 +96,9 @@ class Music(commands.Cog):
 
     @commands.command(name='stop', help='Эта команда прекращает проигрывание музыки!')
     async def stop(self, ctx):
-        _get_voice_channel(ctx).stop()
+        server = ctx.message.guild
+        voice_channel = server.voice_client
+        voice_channel.stop()
 
 
 def setup(bot):
