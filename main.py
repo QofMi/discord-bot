@@ -1,6 +1,12 @@
-from bot.bot import *
+import os
 import logging
+from bot.bot import *
 from bot.config import *
+
+
+# Построение путей внутри проекта
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 
 if __name__ == "__main__":
     formatter = logging.Formatter(
@@ -9,7 +15,7 @@ if __name__ == "__main__":
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
 
-    file_handler = logging.FileHandler("bot.log")
+    file_handler = logging.FileHandler(f"{BASE_DIR}/bot.log")
     file_handler.setFormatter(formatter)
     logger.addHandler(file_handler)
 
