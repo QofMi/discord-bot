@@ -31,9 +31,6 @@ class Help(commands.Cog):
             help.add_field(name=f'{PREFIX}resume', value='Эта команда возобновляет трек.', inline=False)
             help.add_field(name=f'{PREFIX}view или {PREFIX}v', value='Эта команда показывает список треков в очереди.', inline=False)
             help.add_field(name=f'{PREFIX}stop', value='Эта команда прекращает проигрывание музыки.', inline=False)
-        if 'bot.extensions.genpass' in EXTENSIONS:
-            help.add_field(name='==============================', value='----------Генератор паролей----------', inline=False)
-            help.add_field(name=f'{PREFIX}genpass или {PREFIX}gp', value='Эта команда генерирует случайный пароль.', inline=False)
         else:
             help.add_field(name='つ ◕_◕ つ 404', value='В данный момент нет действующих команд!', inline=False)
 
