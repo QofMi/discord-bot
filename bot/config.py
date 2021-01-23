@@ -1,7 +1,7 @@
 """
 |------------------------------------------------------------------|
 |Name-app:   discord-bot                                           |
-|Version:    1.0.2                                                 |
+|Version:    1.0.3                                                 |
 |Author:     Qofmi                                                 |
 |Git:        https://github.com/QofMi/discord-bot.git              |
 |------------------------------------------------------------------|
@@ -9,7 +9,7 @@
 
 
 # Токен бота
-BOT_TOKEN = ''
+BOT_TOKEN = 
 
 # ID текстового чата, в который будет отправляться приветственное сообщение
 CHANNEL_ID =
@@ -24,7 +24,7 @@ MAIN_COLOR = 0xd3597e
 EXTENSIONS = [
 'bot.extensions.help',     # Команда help
 'bot.extensions.music',    # Команды длдя проигрывания музыка в голосовом чате
-#'bot.extensions.events',   # События
+'bot.extensions.meme',     # Мемасы
 ]
 
 # Список статусов бота
@@ -34,5 +34,5 @@ BOT_STATUS = [
 
 # Список приветственных сообщений
 HELLO_MESSAGES = [
-
+'Вжух つ ◕_◕ ༽つ:｡･:*:･ﾟ’★,｡･:*:･ﾟ’☆',
 ]
