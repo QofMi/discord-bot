@@ -21,6 +21,7 @@ TITLE = []
 
 def random_num_in_range() -> int:
     """
+    Случайно выбирает число из диапазона.
     """
     data = list(range(1, 43))
     return _random_choice(data)
@@ -28,6 +29,7 @@ def random_num_in_range() -> int:
 
 def get_image() -> str:
     """
+    Парсит со случайной страницы, случайный пост с изображением.
     """
     find_image = _get_data(URL + str(random_num_in_range())).find_all("div", class_="image")
     for image in find_image:
