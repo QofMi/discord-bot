@@ -57,8 +57,6 @@ MUSIC = {
 def gen_commands() -> None:
     if 'bot.extensions.music' in EXTENSIONS:
         COMMANDS.update(MUSIC)
-    if 'bot.extensions.genpass' in EXTENSIONS:
-        COMMANDS.update(GEN_PASS)
 
 
 gen_commands()
