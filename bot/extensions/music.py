@@ -13,6 +13,9 @@ import logging
 # config
 from ..config import PREFIX
 
+# commands
+from ..commands import MUSIC
+
 
 queue = []
 
@@ -28,7 +31,7 @@ class Music(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name='join', help='Эта команда добавляет бота в голосовой канал.', aliases=["j"])
+    @commands.command(name=MUSIC["join"]["name"], help=MUSIC["join"]["help"], aliases=[MUSIC["join"]["aliases"]])
     async def join(self, ctx):
         user = ctx.message.author
         try:
@@ -42,7 +45,7 @@ class Music(commands.Cog):
             logging.info(f"ERROR -------> {error}")
             await ctx.send("Я уже в голосов чате, даун!")
 
-    @commands.command(name='leave', help='Эта команда удаляет бота из голосового канала.', aliases=["l"])
+    @commands.command(name=MUSIC["leave"]["name"], help=MUSIC["leave"]["help"], aliases=[MUSIC["leave"]["aliases"]])
     async def leave(self, ctx):
         try:
             voice_client = ctx.message.guild.voice_client
@@ -51,13 +54,13 @@ class Music(commands.Cog):
             logging.info(f"ERROR -------> {error}")
             await ctx.send("Меня уже нет в голосовом чате!")
 
-    @commands.command(name='queue', help='Эта команда добавляет трек в очередь.', aliases=["q"])
+    @commands.command(name=MUSIC["queue"]["name"], help=MUSIC["queue"]["help"], aliases=[MUSIC["queue"]["aliases"]])
     async def queue_(self, ctx, url):
         global queue
         queue.append(url)
         await ctx.send(f'`{url}` трек добавлен в очередь!')
 
-    @commands.command(name='remove', help='Эта команда удаляет трек из списка.', aliases=["r"])
+    @commands.command(name=MUSIC["remove"]["name"], help=MUSIC["remove"]["help"], aliases=[MUSIC["remove"]["aliases"]])
     async def remove(self, ctx, number):
         global queue
         try:
@@ -66,7 +69,7 @@ class Music(commands.Cog):
         except:
             await ctx.send('Список пуст')
 
-    @commands.command(name='play', help='Команда для проигрывания трека.', aliases=["p"])
+    @commands.command(name=MUSIC["play"]["name"], help=MUSIC["play"]["help"], aliases=[MUSIC["play"]["aliases"]])
     async def play(self, ctx):
         global queue
         server = ctx.message.guild
@@ -78,23 +81,23 @@ class Music(commands.Cog):
         await ctx.send('**Сейчас играет:** {}'.format(player.title))
         del(queue[0])
 
-    @commands.command(name='pause', help='Эта команда ставит трек на паузу.')
+    @commands.command(name=MUSIC["pause"]["name"], help=MUSIC["pause"]["help"], aliases=[MUSIC["pause"]["aliases"]])
     async def pause(self, ctx):
         server = ctx.message.guild
         voice_channel = server.voice_client
         voice_channel.pause()
 
-    @commands.command(name='resume', help='Эта команда возобновляет трек.')
+    @commands.command(name=MUSIC["resume"]["name"], help=MUSIC["resume"]["help"], aliases=[MUSIC["resume"]["aliases"]])
     async def resume(self, ctx):
         server = ctx.message.guild
         voice_channel = server.voice_client
         voice_channel.resume()
 
-    @commands.command(name='view', help='Эта команда показывает список треков в очереди.', aliases=["v"])
+    @commands.command(name=MUSIC["view"]["name"], help=MUSIC["view"]["help"], aliases=[MUSIC["view"]["aliases"]])
     async def view(self, ctx):
         await ctx.send(f'Треки в списке `{queue}!`')
 
-    @commands.command(name='stop', help='Эта команда прекращает проигрывание музыки!')
+    @commands.command(name=MUSIC["stop"]["name"], help=MUSIC["stop"]["help"], aliases=[MUSIC["stop"]["aliases"]])
     async def stop(self, ctx):
         server = ctx.message.guild
         voice_channel = server.voice_client
