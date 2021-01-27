@@ -41,6 +41,13 @@ def get_image() -> str:
     return _random_choice(MEME_LIST)
 
 
+def clear_list() -> None:
+    try:
+        MEME_LIST.clear()
+    except Exception as error:
+        logging.error(f"ERROR 'clear_list' -----> {error}")
+
+
 class Meme(commands.Cog):
 
     def __init__(self, bot):
@@ -54,6 +61,7 @@ class Meme(commands.Cog):
             meme.set_image(url = get_image())
 
             await self.bot.get_channel(CHANNEL_ID).send(embed=meme)
+            clear_list()
         except Exception as error:
             logging.error(f"ERROR -------> {error}")
 
